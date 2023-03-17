@@ -1,0 +1,13 @@
+<mat-selection-list #shoes [multiple]="false">
+  <mat-list-option *ngFor="let appointment of appointments" (click)="redirectToEdit(appointment.id)" [value]="appointment.id">
+    <mat-icon matListItemIcon>note_add</mat-icon>
+    <p> <b>{{appointment.doctor.name}}&nbsp;<i>({{appointment.doctor.specification}})</i></b></p>
+    <p > <b>Patient Name :</b> {{appointment.patientName}}</p>
+    <p> <b>Appointment Date :</b> {{appointment.appointmentDate}}</p>
+    <p> <b>DOB:</b> {{appointment.dateOfBirth}}</p>
+  </mat-list-option>
+</mat-selection-list>
+
+<p>
+  Option selected: {{shoes.selectedOptions.hasValue() ? shoes.selectedOptions.selected[0].value : 'None'}}
+</p>

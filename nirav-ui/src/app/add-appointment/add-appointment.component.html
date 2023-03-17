@@ -1,0 +1,66 @@
+<p>add-appointment works!</p>
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="saveDetails(form)">
+    <mat-form-field >
+      <mat-label>Patient Name</mat-label>
+      <input matInput maxlength="15" inputmode="text" placeholder="Type name" formControlName="name" #nameInput>
+      <mat-hint>Mini character 2: {{ nameInput.value.length }}/10</mat-hint>
+      <mat-error>Name is required</mat-error>
+      <mat-error *ngIf="form.controls['name'].errors?.['minlength']">
+        Please enter more than 2 character
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email Address:</mat-label>
+      <input matInput type="email" formControlName="email" placeholder="Your email">
+      <mat-icon matSuffix>mail_outline</mat-icon>
+      <mat-hint>Input the fully qualified email address</mat-hint>
+      <mat-error *ngIf="form.controls['email'].errors?.['required']">Email is required</mat-error>
+      <mat-error *ngIf="form.controls['email'].errors?.['pattern']">Please enter valid email</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Mobile No:</mat-label>
+      <input matInput inputmode="text"  formControlName="mobile" placeholder="Your Mobile No">
+      <mat-icon matSuffix>contact_phone</mat-icon>
+      <mat-hint>Input your 10 digit mobile no</mat-hint>
+      <mat-error *ngIf="form.controls['mobile'].errors?.['required']">Mobile No is required</mat-error>
+      <mat-error *ngIf="form.controls['mobile'].errors?.['pattern']">Please enter valid mobile No</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dob">
+      <mat-datepicker-toggle matSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Appointment date</mat-label>
+      <input matInput [matDatetimepicker]="matDatetimepicker" formControlName="appdate">
+      <mat-datetimepicker-toggle [for]="matDatetimepicker" matSuffix>
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+      </mat-datetimepicker-toggle>
+      <mat-datetimepicker #matDatetimepicker type="datetime"></mat-datetimepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select Doctor</mat-label>
+      <mat-select formControlName="doctor">
+        <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+          {{doctor.name}}({{doctor.specification}})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div mat-dialog-actions align="end">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
+    </div>
+  </form>
+</div>
+
